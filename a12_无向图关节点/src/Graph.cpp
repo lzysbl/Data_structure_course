@@ -91,7 +91,7 @@ void Graph::userRemoveEdge(){
     std::cin>>v>>w;
     removeEdge(v,w);
 }
-//是否为关节点
+//除去关节点的深度优先搜索
 void Graph::DFSUtil(int u) {
     bool adjMatrix_copy[MAX_VERTICES][MAX_VERTICES] = {false};  
     bool visited_copy[MAX_VERTICES] = {false};

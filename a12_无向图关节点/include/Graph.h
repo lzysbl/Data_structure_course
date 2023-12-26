@@ -27,7 +27,7 @@ public:
     bool isExist[MAX_VERTICES]; //顶点是否存在
     int  numberArticulationPoints; //关节点数
     bool ArticulationPoint[MAX_VERTICES]; //关节点数组
-    //深度优先搜索
+    //除去关节点的深度优先搜索
     void DFSUtil(int v);
     Point headpoint[MAX_VERTICES]; //顶点坐标
     Graph();
