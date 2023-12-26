@@ -15,7 +15,7 @@ private:
     vector<int> h;    // 存储顶点的邻接表在向量 list 中的起始位置
     vector<int> inDegree; // 存储每个顶点的入度
     vector<int> outDegree;//出度
-    map<pair<int, int>, int> weights; // 存储边的权重值
+    map<pair<int, int>, int> weights; // 存储边的权重值 
     
 public:
     CompactGraph(int n, bool weighted) : list(), h(n, -1), inDegree(n, 0), outDegree(n, 0), isWeighted(weighted) {}
