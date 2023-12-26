@@ -17,7 +17,7 @@ void drawGraph(Graph g){
             cv::circle(a,cv::Point(g.headpoint[i].x,g.headpoint[i].y),10,cv::Scalar(255,191,0),-2);
             g.headpoint[i].y = g.headpoint[i].y;
             j++;
-        }
+        } 
     }
    
     //画边
