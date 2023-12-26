@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <opencv2/opencv.hpp>
+#include <cstdlib>
+#include <ctime>
 #define MAX_VERTICES 100
 
 // 图类
@@ -41,12 +43,24 @@ public:
     void removeEdge(int v, int w);
     //用户自定义删除
     void userRemoveEdge();
+    //写入文件
+    void writeToFile(std::string filename="../graph.txt");
+    //读取文件
+    void readFromFile(std::string filename="../graph.txt");
+    //用户自定义写入文件
+    void userWriteToFile();
+    //用户自定义读取文件
+    void userReadFromFile();
+    //随机生成连通图
+    void randomGraph();
     //统计
     void getNumberArticulationPoints();
     //找关节点
     void findArticulationPoints();
     //递归深度优先搜索返回能查找到节点数量
     int DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX_VERTICES]);
+    //删除并修改关节点
+    void deleteArticulationPoint();
     //修改关节点
     void modifyArticulationPoint();
     //查询是否为关节点

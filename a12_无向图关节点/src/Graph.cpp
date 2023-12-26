@@ -14,10 +14,13 @@ Graph::Graph(){
         visited[i] = false;
     }
 }
+
+
 //添加边
 void Graph::addEdge(int v, int w) {
     // 确保顶点编号在范围内
     if (v >= 0 && v < MAX_VERTICES && w >= 0 && w < MAX_VERTICES) {
+        
         // 添加边
         adjMatrix[v][w] = true;
         adjMatrix[w][v] = true;
@@ -33,9 +36,11 @@ void Graph::addEdge(int v, int w) {
             isExist[w] = true;
         }
         // 更新边数
-        E++;
+            E++;
+        
     }
 }
+
 //用户自定义输入
 void Graph::userAddEdge(){
     int v,w;
@@ -43,6 +48,7 @@ void Graph::userAddEdge(){
     std::cin>>v>>w;
     addEdge(v,w);
 }
+
 //添加多个边
 void Graph::userAddEdges(){
     std::cout<<"请输入要添加的边的数量：";
@@ -52,6 +58,7 @@ void Graph::userAddEdges(){
         userAddEdge();
     }
 }
+
 //删除边
 void Graph::removeEdge(int v, int w) {
     // 确保顶点编号在范围内
@@ -84,12 +91,128 @@ void Graph::removeEdge(int v, int w) {
         E--;
     }
 }
+
 //用户自定义删除
 void Graph::userRemoveEdge(){
     int v,w;
     std::cout<<"请输入要删除的边(0-99之间,空格隔开输入)：";
     std::cin>>v>>w;
     removeEdge(v,w);
+}
+
+//写入文件
+void Graph::writeToFile(std::string filename){
+    std::ofstream out(filename);
+    for(int i=0;i<MAX_VERTICES;i++){
+        for(int j=0;j<MAX_VERTICES;j++){
+            if(adjMatrix[i][j]){
+                out<<i<<" "<<j<<std::endl;
+            }
+        }
+    }
+    out.close();
+}
+
+//读取文件
+void Graph::readFromFile(std::string filename){
+    std::ifstream in(filename);
+    while(!in.eof()){
+        int v,w;
+        in>>v>>w;
+        addEdge(v,w);
+    }
+    in.close();
+}
+
+//用户自定义写入文件
+void Graph::userWriteToFile(){
+    std::cout<<"请输入文件名(默认为graph.txt):";
+    std::string filename;
+    getchar();
+    std::getline(std::cin,filename);
+    if(filename == ""){
+        writeToFile();
+    }else{
+        writeToFile("../"+filename);
+    }
+}
+
+//用户自定义读取文件
+void Graph::userReadFromFile(){
+    std::cout<<"请输入文件名(默认为graph.txt):";
+    std::string filename;
+    getchar();
+    std::getline(std::cin,filename);
+    if(filename == ""){
+        readFromFile();
+    }else{
+        readFromFile("../"+filename);
+    }
+}
+
+//随机生成连通图
+void Graph::randomGraph(){
+    // 使用当前时间作为种子初始化随机数生成器
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    //重置
+    *this = Graph();
+    //
+    std::cout << "请输入顶点数：";
+    std::cin >> V;
+    std::cout << "请输入边数：";
+    int edge;
+    std::cin >> edge;
+    if(edge<V-1){
+        std::cout<<"边数小于顶点数-1，无法生成连通图"<<std::endl;
+        return;
+    }else if(edge>V*(V-1)/2){
+        std::cout<<"边数大于顶点数*(顶点数-1)/2，无法生成连通图"<<std::endl;
+        return;
+    }
+    int *point = new int[V];
+    std::cout<<"生成的点有："<<std::endl;
+
+    // 0-99之间的随机数,不能有重复
+    for(int i = 0; i < V; i++){
+        int j = rand() % (100-i);
+        int k=0;
+        while(j>=0&&k<MAX_VERTICES){
+            if(!isExist[k]){        
+                if(j==0){
+                    point[i] = k;
+                    isExist[k] = true;
+                    std::cout<<k<<",";
+                    break;
+                }else{j--;
+                    k++;}
+            }else{
+                k++;
+            }
+        }
+    }
+    std::cout<<std::endl;
+    std::cout<<"生成的边有："<<std::endl;
+    // 连接边
+    for(int i = 0; i < edge; i++){
+        if(i<V-1){
+        // 顺序连接
+            addEdge(point[i], point[i + 1]);
+            std::cout<<point[i]<<"-"<<point[i+1]<<",";
+        }else{
+            //都取奇数或者偶数
+            int x = rand() % V;
+            int y = rand() % V;
+            while(adjMatrix[point[x]][point[y]]||std::abs(x-y)<2){
+                x = rand() % V;
+                y = rand() % V;
+            }
+            addEdge(point[x], point[y]);
+            std::cout<<point[x]<<"-"<<point[y]<<",";
+        }
+    }
+    std::cout<<std::endl;
+    // 释放内存
+    delete[] point;
 }
 //除去关节点的深度优先搜索
 void Graph::DFSUtil(int u) {
@@ -115,6 +238,7 @@ void Graph::DFSUtil(int u) {
         numberArticulationPoints++;
     }
 }
+
 //深度优先搜索
 int Graph::DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX_VERTICES]) {
     visited[v] = true;
@@ -126,6 +250,7 @@ int Graph::DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX
     }
     return count;  // 返回访问过的节点总数
 }
+
 //查找关节点
 void Graph::findArticulationPoints() {
     // 初始化
@@ -139,6 +264,7 @@ void Graph::findArticulationPoints() {
         }
     }
 }
+
 //查询是否为关节点
 void Graph::isArticulationPoint(){
     findArticulationPoints();
@@ -152,6 +278,7 @@ void Graph::isArticulationPoint(){
             std::cout<<"不是合法点"<<std::endl;
         }
     }
+
 //统计
 void Graph::getNumberArticulationPoints(){
     findArticulationPoints();
@@ -179,13 +306,55 @@ void Graph::getNumberArticulationPoints(){
     std::cout<<"当前的关节点有："<<std::endl;
     for(int i=0;i<MAX_VERTICES;i++){
         if(ArticulationPoint[i]){
-            std::cout<<i<<"";
+            std::cout<<i<<",";
         }
     } 
     std::cout<<std::endl;
 }
+
 //修改关节点
 void Graph::modifyArticulationPoint(){
+    findArticulationPoints();
+    std::cout<<"当前的关节点有："<<std::endl;
+    for(int i=0;i<MAX_VERTICES;i++){
+        if(ArticulationPoint[i]){
+            std::cout<<i<<" ";
+        }
+    }
+    std::cout<<std::endl;
+    int v;
+    std::cout<<"请输入要修改的关节点：";
+    std::cin>>v;
+    while(!ArticulationPoint[v]){
+        std::cout<<"不是关节点，请重新输入：";
+        std::cout<<"请输入要修改的关节点：";
+        std::cin>>v;
+    }
+    int connectPoint[MAX_VERTICES]={0};
+    int k=0;
+    //遍历关节点,找到与v相连的点
+    if(ArticulationPoint[v]){
+        for(int j = 0;j < MAX_VERTICES;j++){
+            if(adjMatrix[v][j]){
+                connectPoint[k] = j;
+                k++;
+            }
+        }
+    }
+     //删除关节点数量减一
+    numberArticulationPoints --;
+    //删除关节点设置为不存在
+    ArticulationPoint[v] = false;
+    //链接图剩余节点
+    for(int i=0;i<k;i++){
+        for(int j=i+1;j<k;j++){
+            addEdge(connectPoint[i],connectPoint[j]);
+        }
+    }
+}
+
+//删除并修改关节点
+void Graph::deleteArticulationPoint(){
     findArticulationPoints();
     std::cout<<"当前的关节点有："<<std::endl;
     for(int i=0;i<MAX_VERTICES;i++){
@@ -239,9 +408,14 @@ void Graph::modifyArticulationPoint(){
         }
     }
 }
+
 //析构函数
 Graph::~Graph(){
 }
+
+
+//普通函数
+
 //画图
 void drawGraph(Graph g){
     //找关节点
@@ -285,5 +459,6 @@ void drawGraph(Graph g){
     cv::putText(a,"ArticulationPoints is in red color",cv::Point(50,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar(0,0,255),2);
     cv::putText(a,"Other points is in blue color",cv::Point(50,100),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar(255,191,0),2);
     cv::imshow("无向图",a);
+    std::cout<<"按任意键继续"<<std::endl;
     cv::waitKey(0);
 }
