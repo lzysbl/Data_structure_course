@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <opencv2/opencv.hpp>
 #define MAX_VERTICES 100
+
 // 图类
 class Point {
 public:
@@ -31,26 +33,26 @@ public:
     Graph();
     //添加边
     void addEdge(int v, int w);
-    //删除边
-    void removeEdge(int v, int w);
-    //用户自定义添加
-    void userAddEdge();
-    //用户自定义删除
-    void userRemoveEdge();
-    //找关节点
-    void findArticulationPoints();
-    //修改关节点
-    void modifyArticulationPoint();
-    // 其他功能...
-    int DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX_VERTICES]);
-    //判断删除节点后图是否连通
-    bool isConnectedAfterRemoval(int u);
-    //查询是否为关节点
-    void isArticulationPoint();
     //添加多个边
     void userAddEdges();
+    //用户自定义添加
+    void userAddEdge();
+    //删除边
+    void removeEdge(int v, int w);
+    //用户自定义删除
+    void userRemoveEdge();
     //统计
     void getNumberArticulationPoints();
-    //图的遍历
+    //找关节点
+    void findArticulationPoints();
+    //递归深度优先搜索返回能查找到节点数量
+    int DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX_VERTICES]);
+    //修改关节点
+    void modifyArticulationPoint();
+    //查询是否为关节点
+    void isArticulationPoint();
+    //析构函数
     ~Graph();
 };
+//画图
+void drawGraph(Graph g);
