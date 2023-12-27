@@ -4,10 +4,9 @@ int main() {
     Graph g;
     // 示例：添加边和查找关节点
     while(1){
-
         std::cout<<"请选择功能："<<std::endl;
         std::cout<<"-1.重置图"<<std::endl;
-        std::cout<<"0.随机生成图"<<std::endl;
+        std::cout<<"0.随机生成连通图"<<std::endl;
         std::cout<<"1.添加单个边"<<std::endl;
         std::cout<<"2.添加多个边"<<std::endl;
         std::cout<<"3.删除边"<<std::endl;
