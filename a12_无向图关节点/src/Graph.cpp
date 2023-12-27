@@ -252,9 +252,14 @@ int Graph::DFSConnectivityCheck(int v, bool visited[], bool adjMatrix_copy[][MAX
 
 //查找关节点
 void Graph::findArticulationPoints() {
+
     // 初始化
     for (int i = 0; i < MAX_VERTICES; i++) {
         visited[i] = false;
+    }
+    // 初始化关节点数组
+    for(int i=0;i<MAX_VERTICES;i++){
+        ArticulationPoint[i] = false;
     }
     // 从第一个顶点开始深度优先搜索
     for (int i = 0; i < MAX_VERTICES; i++) {
@@ -262,7 +267,7 @@ void Graph::findArticulationPoints() {
             DFSUtil(i);
         }
     }
-
+    //统计关节点数量
     numberArticulationPoints = 0;
     for(int i=0;i<MAX_VERTICES;i++){
         if(ArticulationPoint[i]){
