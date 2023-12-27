@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "class",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "class::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-class-Debug-8619ad6a8909d70c28c5.json",
+					"name" : "class",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/yaogcc/\u684c\u9762/\u6570\u636e\u7ed3\u6784/\u6570\u636e\u7ed3\u6784\u8bfe\u8bbe/\u8bfe\u8bbe\u4ee3\u7801/a12_\u65e0\u5411\u56fe\u5173\u8282\u70b9/build",
+		"source" : "/home/yaogcc/\u684c\u9762/\u6570\u636e\u7ed3\u6784/\u6570\u636e\u7ed3\u6784\u8bfe\u8bbe/\u8bfe\u8bbe\u4ee3\u7801/a12_\u65e0\u5411\u56fe\u5173\u8282\u70b9"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

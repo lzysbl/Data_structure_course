@@ -6,6 +6,7 @@ int main() {
     while(1){
 
         std::cout<<"请选择功能："<<std::endl;
+        std::cout<<"-1.重置图"<<std::endl;
         std::cout<<"0.随机生成图"<<std::endl;
         std::cout<<"1.添加单个边"<<std::endl;
         std::cout<<"2.添加多个边"<<std::endl;
@@ -21,7 +22,10 @@ int main() {
         int choice;
         std::cin>>choice;
         std::system("clear");
-        if(choice == 0){
+        if(choice == -1){
+            g = Graph();
+        }
+        else if(choice == 0){
             g.randomGraph();
         }else if(choice == 1){
             g.userAddEdge();
