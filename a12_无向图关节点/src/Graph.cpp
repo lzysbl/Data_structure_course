@@ -235,7 +235,6 @@ void Graph::DFSUtil(int u) {
     int node_number = DFSConnectivityCheck(start, visited_copy, adjMatrix_copy);
     if(node_number != V-1){
         ArticulationPoint[u] = true;
-        numberArticulationPoints++;
     }
 }
 
@@ -261,6 +260,13 @@ void Graph::findArticulationPoints() {
     for (int i = 0; i < MAX_VERTICES; i++) {
         if (!visited[i]&&isExist[i]) {
             DFSUtil(i);
+        }
+    }
+
+    numberArticulationPoints = 0;
+    for(int i=0;i<MAX_VERTICES;i++){
+        if(ArticulationPoint[i]){
+            numberArticulationPoints++;
         }
     }
 }
